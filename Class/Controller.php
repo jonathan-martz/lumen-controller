@@ -7,9 +7,12 @@
 
 	class Controller extends BaseController
 	{
-
 		public $result =  [];
-		public $request =  [];
+		public $request = [];
+
+		public function __construct(){
+			$this->addRequest('timestamp',\time());
+		}
 
 		public function addResult(string $key, $value):void{
 			$this->result[$key] = $value;

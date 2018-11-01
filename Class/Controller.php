@@ -9,6 +9,7 @@
 	{
 		public $result =  [];
 		public $request = [];
+		public $message = [];
 
 		public function __construct(){
 			$this->addRequest('timestamp',\time());
@@ -22,10 +23,18 @@
 			$this->result[$key] = $value;
 		}
 
+		public function addMessage(string $status, string $message):void{
+			$this->message[] = [
+				'status' => $status,
+				'message' => $message
+			];
+		}
+
 		public function getResponse(){
 			return response()->json([
 				'result' => $this->result,
-				'request' => $this->request
+				'request' => $this->request,
+				'message' => $this->message
 			]);
 		}
 	}

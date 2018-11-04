@@ -30,6 +30,10 @@
 			];
 		}
 
+		public function resetMessages():void{
+			$this->message[] = [];
+		}
+
 		public function getResponse(){
 			return response()->json([
 				'result' => $this->result,

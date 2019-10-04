@@ -1,5 +1,5 @@
 {
-    "name":"mkaaaaaaay/lumen-controller",
+    "name":"jonathan-martz/lumen-controller",
     "description":"Php Lumen Controller to organise response",
     "require":{
         "php":"^7.1",

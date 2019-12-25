@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
@@ -28,12 +27,6 @@ class Controller extends BaseController
     public $message = [];
 
     /**
-     * @var array
-     */
-    public $xxsProtection = ['all' => true];
-
-
-    /**
      * Controller constructor.
      * @param Request $request
      */
@@ -41,20 +34,6 @@ class Controller extends BaseController
     {
         $this->request = $request;
         $this->addRequest('timestamp', \time());
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function performXxsProtection()
-    {
-        if (!empty($this->xxsProtection['all']) && $this->xxsProtection['all'] === true) {
-            foreach ($this->request->all() as $key => $input) {
-                if (strlen($input) !== strlen(strip_tags($input))) {
-                    throw new Exception('Request contains xss attack');
-                }
-            }
-        }
     }
 
     /**
@@ -101,13 +80,6 @@ class Controller extends BaseController
      */
     public function getResponse(): JsonResponse
     {
-        try{
-            $this->performXxsProtection();
-        }
-        catch(Exception $e){
-            $this->resetMessages();
-            $this->addMessage('exception', $e->getMessage());
-        }
         return response()->json([
             'result' => $this->result,
             'request' => $this->request,

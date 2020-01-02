@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
+use function time;
 
 /**
  * Class Controller
@@ -33,14 +34,14 @@ class Controller extends BaseController
     public function __construct(Request $request)
     {
         $this->request = $request;
-        $this->addRequest('timestamp', \time());
+        $this->addRequest('timestamp', time());
     }
 
     /**
      * @param string $key
      * @param $value
      */
-    public function addResult(string $key, $value): void
+    public function addRequest(string $key, $value): void
     {
         $this->result[$key] = $value;
     }
@@ -49,7 +50,7 @@ class Controller extends BaseController
      * @param string $key
      * @param $value
      */
-    public function addRequest(string $key, $value): void
+    public function addResult(string $key, $value): void
     {
         $this->result[$key] = $value;
     }

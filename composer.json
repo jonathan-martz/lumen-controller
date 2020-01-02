@@ -1,22 +1,24 @@
 {
-    "name":"jonathan-martz/lumen-controller",
-    "description":"Php Lumen Controller to organise response",
-    "license": "MIT",
-    "require":{
-        "php":"^7.1|^7.2|^7.3|^7.4",
-        "laravel/lumen-framework": "^5.6|^6.0",
-        "jonathan-martz/lumen-middelware-xss": "^0.1",
-        "jonathan-martz/lumen-middelware-https": "^0.1"
-    },
-    "autoload": {
-        "classmap": ["controller/"]
-    },
-    "authors": [
-        {
-            "name": "Jonathan Martz",
-            "email": "composer@jmartz.de",
-            "homepage": "https://www.jmartz.de",
-            "role": "Developer"
-        }
+  "name": "jonathan-martz/lumen-controller",
+  "description": "Php Lumen Controller to organise response",
+  "license": "MIT",
+  "require": {
+    "php": "^7.3|^7.4",
+    "laravel/lumen-framework": "^6.3",
+    "jonathan-martz/lumen-middelware-xss": "^0.1",
+    "jonathan-martz/lumen-middelware-https": "^0.1"
+  },
+  "autoload": {
+    "classmap": [
+      "controller/"
     ]
+  },
+  "authors": [
+    {
+      "name": "Jonathan Martz",
+      "email": "composer@jmartz.de",
+      "homepage": "https://www.jmartz.de",
+      "role": "Developer"
+    }
+  ]
 }

@@ -25,7 +25,10 @@ class Controller extends BaseController
     /**
      * @var array
      */
-    public  $message       = [];
+    public $message = [];
+    /**
+     * @var array
+     */
     private $allowedStatus = [
         200, 404, 418, 500
     ];
@@ -39,16 +42,8 @@ class Controller extends BaseController
         $this->request = $request;
         $this->addRequest('timestamp', time());
         $this->addResult('status', 200);
-    }
-
-    public function setStatus(int $status)
-    {
-        if(in_array($status, $this->allowedStatus)) {
-            $this->addResult('status', $status);
-        }
-        else {
-            $this->addMessage('warning', 'Status not allowed.');
-        }
+        $this->setRedirect('false');
+        $this->setRedirect(false);
     }
 
     /**
@@ -67,6 +62,35 @@ class Controller extends BaseController
     public function addResult(string $key, $value): void
     {
         $this->result[$key] = $value;
+    }
+
+    /**
+     * @param string $path
+     */
+    public function setRedirect(string $path)
+    {
+        $this->addResult('redirect', $path);
+    }
+
+    /**
+     * @param bool $reload
+     */
+    public function setReload(bool $reload)
+    {
+        $this->addResult('reload', $reload);
+    }
+
+    /**
+     * @param int $status
+     */
+    public function setStatus(int $status)
+    {
+        if(in_array($status, $this->allowedStatus)) {
+            $this->addResult('status', $status);
+        }
+        else {
+            $this->addMessage('warning', 'Status not allowed.');
+        }
     }
 
     /**

@@ -32,6 +32,10 @@ class Controller extends BaseController
     private $allowedStatus = [
         200, 404, 418, 500
     ];
+    /**
+     * @var string
+     */
+    private $locale = 'en';
 
     /**
      * Controller constructor.
@@ -44,6 +48,29 @@ class Controller extends BaseController
         $this->addResult('status', 200);
         $this->setRedirect('false');
         $this->setRedirect(false);
+        if(empty($this->request->input('locale'))) {
+            $this->addMessage('warning', $this->translate('Locale in request missing.'));
+        }
+    }
+
+    /**
+     * @param string $text
+     * @param array $data
+     * @return mixed
+     */
+    public function translate(string $text, array $data = [])
+    {
+        App::setLocale($this->getLocale());
+
+        return __($text, $data);
+    }
+
+    /**
+     * @return string
+     */
+    public function getLocale(): string
+    {
+        return $this->locale;
     }
 
     /**
@@ -89,7 +116,7 @@ class Controller extends BaseController
             $this->addResult('status', $status);
         }
         else {
-            $this->addMessage('warning', 'Status not allowed.');
+            $this->addMessage('warning', $this->translate('Status not allowed.'));
         }
     }
 

@@ -25,7 +25,10 @@ class Controller extends BaseController
     /**
      * @var array
      */
-    public $message = [];
+    public  $message       = [];
+    private $allowedStatus = [
+        200, 404, 418, 500
+    ];
 
     /**
      * Controller constructor.
@@ -35,6 +38,17 @@ class Controller extends BaseController
     {
         $this->request = $request;
         $this->addRequest('timestamp', time());
+        $this->addResult('status', 200);
+    }
+
+    public function setStatus(int $status)
+    {
+        if(in_array($status, $this->allowedStatus)) {
+            $this->addResult('status', $status);
+        }
+        else {
+            $this->addMessage('warning', 'Status not allowed.');
+        }
     }
 
     /**

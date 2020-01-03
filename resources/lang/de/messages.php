@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'Status not allowed.' => 'Welcome to our application',
-    'Locale in request missing.' => 'Welcome to our application',
+    'Status not allowed.' => 'Dieser Status ist nicht erlaubt.',
+    'Locale in request missing.' => 'Sprache fehlt in Anfrage.',
 ];

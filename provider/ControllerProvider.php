@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class ControllerRrovider extends ServiceProvider
+class ControllerProvider extends ServiceProvider
 {
     /**
      * Register any application services.

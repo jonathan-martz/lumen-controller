@@ -10,7 +10,8 @@
   },
   "autoload": {
     "classmap": [
-      "controller/"
+      "controller/",
+      "provider/"
     ]
   },
   "authors": [
@@ -20,5 +21,12 @@
       "homepage": "https://www.jmartz.de",
       "role": "Developer"
     }
-  ]
+  ],
+  "extra": {
+    "laravel": {
+      "providers": [
+        "App\\Providers\\ControllerProvider"
+      ]
+    }
+  }
 }

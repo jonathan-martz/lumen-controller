@@ -4,7 +4,9 @@
   "license": "MIT",
   "require": {
     "php": "^7.3|^7.4",
-    "laravel/framework": "^6.3|^7.0"
+    "illuminate/support": "^7.0",
+    "illuminate/routing": "^7.0",
+    "illuminate/http": "^7.0"
   },
   "autoload": {
     "classmap": [

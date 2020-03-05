@@ -1,7 +1,12 @@
-### Usage
+#### Lumen Base Controller
 
-
-extend every controller from
+##### Usage
 ```
 App\Http\Controllers\Controller
 ```
+
+##### Description
+This is my base controller for laravel controllers
+
+##### Copyright
+Copyright by Jonathan Martz

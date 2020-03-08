@@ -35,9 +35,6 @@ class Controller extends BaseController
     {
         $this->request = $request;
         $this->setTimestamp(time());
-        if(empty($this->request->input('locale'))) {
-            $this->addMessage('warning', $this->translate('Locale in request missing.'));
-        }
     }
 
     public function setTimestamp(int $unix)
@@ -70,18 +67,6 @@ class Controller extends BaseController
             'status' => $status,
             'message' => $message
         ];
-    }
-
-    /**
-     * @param string $text
-     * @param array $data
-     * @return mixed
-     */
-    public function translate(string $text, array $data = [])
-    {
-        App::setLocale($this->getLocale());
-
-        return __($text, $data);
     }
 
     /**

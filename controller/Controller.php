@@ -15,28 +15,17 @@ use function time;
 class Controller extends BaseController
 {
     /**
-     * @var array
-     */
-    public $result = [];
-
-    /**
      * @var Request
      */
     public $request;
     /**
-     * @var array
+     * @var
      */
-    public $message = [];
-    /**
-     * @var array
-     */
-    private $allowedStatus = [
-        200, 404, 418, 500
+    public $data = [
+        'status' => 200,
+        'redirect' => false,
+        'reload' => false
     ];
-    /**
-     * @var string
-     */
-    private $locale = 'en';
 
     /**
      * Controller constructor.
@@ -45,13 +34,42 @@ class Controller extends BaseController
     public function __construct(Request $request)
     {
         $this->request = $request;
-        $this->addRequest('timestamp', time());
-        $this->addResult('status', 200);
-        $this->setRedirect('false');
-        $this->setRedirect(false);
+        $this->setTimestamp(time());
         if(empty($this->request->input('locale'))) {
             $this->addMessage('warning', $this->translate('Locale in request missing.'));
         }
+    }
+
+    public function setTimestamp(int $unix)
+    {
+        $this->data['timestamp'] = $unix;
+    }
+
+    public function setStatus(int $status)
+    {
+        $this->data['status'] = $status;
+    }
+
+    public function setRedirect(?string $url)
+    {
+        $this->data['redirect'] = $url;
+    }
+
+    public function setReload(bool $reload)
+    {
+        $this->data['reload'] = $reload;
+    }
+
+    /**
+     * @param string $status
+     * @param string $message
+     */
+    public function addMessage(string $status, string $message): void
+    {
+        $this->data['message'][] = [
+            'status' => $status,
+            'message' => $message
+        ];
     }
 
     /**
@@ -67,90 +85,19 @@ class Controller extends BaseController
     }
 
     /**
-     * @return string
-     */
-    public function getLocale(): string
-    {
-        return $this->locale;
-    }
-
-    /**
      * @param string $key
      * @param $value
      */
-    public function addRequest(string $key, $value): void
+    public function addData(string $key, $value): void
     {
-        $this->result[$key] = $value;
+        $this->data[$key] = $value;
     }
-
-    /**
-     * @param string $key
-     * @param $value
-     */
-    public function addResult(string $key, $value): void
-    {
-        $this->result[$key] = $value;
-    }
-
-    /**
-     * @param string $path
-     */
-    public function setRedirect(string $path)
-    {
-        $this->addResult('redirect', $path);
-    }
-
-    /**
-     * @param bool $reload
-     */
-    public function setReload(bool $reload)
-    {
-        $this->addResult('reload', $reload);
-    }
-
-    /**
-     * @param int $status
-     */
-    public function setStatus(int $status)
-    {
-        if(in_array($status, $this->allowedStatus)) {
-            $this->addResult('status', $status);
-        }
-        else {
-            $this->addMessage('warning', $this->translate('Status not allowed.'));
-        }
-    }
-
-    /**
-     * @param string $status
-     * @param string $message
-     */
-    public function addMessage(string $status, string $message): void
-    {
-        $this->message[] = [
-            'status' => $status,
-            'message' => $message
-        ];
-    }
-
-    /**
-     *
-     */
-    public function resetMessages(): void
-    {
-        $this->message = [];
-    }
-
 
     /**
      * @return JsonResponse
      */
     public function getResponse(): JsonResponse
     {
-        return response()->json([
-            'result' => $this->result,
-            'request' => $this->request,
-            'message' => $this->message
-        ]);
+        return response()->json($this->data);
     }
 }
